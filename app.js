@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js';
-import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAm5XrCHtQe58dw0kcvkzOjShKzUgyH91o",
@@ -15,8 +15,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-let register = document.getElementById('register');
 
+// signup authentication here
+let register = document.getElementById('register');
 register.addEventListener("click", (event) => {
   event.preventDefault(); 
 
@@ -26,8 +27,11 @@ register.addEventListener("click", (event) => {
 
   console.log(email, pass, userName);
 
+  
   createUserWithEmailAndPassword(auth, email, pass)
     .then((userCredential) => {
+
+       
       const user = userCredential.user;
       console.log("user--->", user);
     })
@@ -35,10 +39,78 @@ register.addEventListener("click", (event) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("error-->", errorMessage);
-      if(errorMessage === "Password should be at least 6 characters"){
-        
+      if(errorMessage === "Firebase: Password should be at least 6 characters (auth/weak-password)."){
+        alert("Password should be at least 6 characters")
       }
+      else if(errorMessage === "Firebase: Error (auth/invalid-email)."){
+        alert('Invalid Email')
+      }else if(errorMessage==="Firebase: Error (auth/email-already-in-use)."){
+        alert('Email alreay in use')
+     }else if(errorMessage === "Firebase: Error (auth/missing-password)."){
+      alert("Enter a password")
+     }
     });
 
-  console.log('test');
 });
+
+
+
+
+// login Authentication here
+const loginBtn = document.getElementById('login')
+
+loginBtn.addEventListener("click",()=>{
+
+  const loginEmail = document.getElementById('login-email')
+  const loginPass = document.getElementById('login-pass') 
+  
+
+const auth = getAuth(app);
+signInWithEmailAndPassword(auth, loginEmail.value, loginPass.value)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    if(user === user){
+      alert("Login sucess")
+    }
+     location.href = "main.html"
+  })
+  .catch((error) => {
+    const errorMessage = error.message;
+    console.log(errorMessage)
+
+    if(errorMessage==="Firebase: Error (auth/invalid-credential)."){
+      alert("Enter valid password")
+    }else if(errorMessage==="Firebase: Error (auth/invalid-email)."){
+      alert("Enter a valid email")
+    }
+  });
+
+
+
+})
+
+
+
+
+const authGoogle = getAuth(app);
+authGoogle.languageCode = 'it'
+const provider = new GoogleAuthProvider()
+const googleBtn = document.getElementById('google-btn')
+
+googleBtn.addEventListener('click',()=>{
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const user = result.user;
+    if(user === user){
+      alert("Login sucess")
+    }
+     location.href = "main.html"
+ 
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage)
+
+  });
+})
