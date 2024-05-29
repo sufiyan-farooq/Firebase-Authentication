@@ -11,6 +11,7 @@
 body,
 input {
   font-family: 'Montserrat', sans-serif;
+
 }
 
 .container {
@@ -403,4 +404,109 @@ form.sign-in-form {
     bottom: 28%;
     left: 50%;
   }
+}
+.navbar{
+  background-color: #fff;
+  width: 100%;
+  height: 80px;
+
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.logo img{
+  margin-left: 20px;
+  width: 60px;
+  position: relative;
+}
+
+.logout-btn{
+  margin-right: 30px;
+}
+.Btn {
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: #0cb0ff  ;
+  margin-top: 10px;
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: .3s;
+  
+}
+/* hover effect on button width */
+.Btn:hover {
+  width: 125px;
+  border-radius: 40px;
+  transition-duration: .3s;
+  background-color: #059ae4;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px ,2px);
+}
+.content{
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-box{
+  background-color: #035dd3;
+  width: 50%;
+  height: 450px;
+  margin: 0 auto;
+  margin-top: 30px;
+  text-align: center;
+}
+.user-detail-head h1{
+  font-weight: 500;
+  font-size: 50px;
+  color: #0cb0ff;
 }

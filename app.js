@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js';
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup} from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword ,GoogleAuthProvider,signInWithPopup,sendEmailVerification } from 'https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAm5XrCHtQe58dw0kcvkzOjShKzUgyH91o",
@@ -31,9 +31,13 @@ register.addEventListener("click", (event) => {
   createUserWithEmailAndPassword(auth, email, pass)
     .then((userCredential) => {
 
-       
+      user.displayName = userName;
       const user = userCredential.user;
       console.log("user--->", user);
+      user.sendEmailVerification()
+                .then(() => {
+                    alert('Verification email sent!');
+                });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -114,3 +118,34 @@ googleBtn.addEventListener('click',()=>{
 
   });
 })
+
+
+
+
+   // Profile Page Logic
+if (window.location.pathname.includes('main.html')) {
+  auth.onAuthStateChanged((user) => {
+      if (user) {
+          document.getElementById('userName').innerText = `Name: ${user.displayName || 'N/A'}`;
+          document.getElementById('userEmail').innerText = `Email: ${user.email}`;
+          document.getElementById('verificationStatus').innerText = `Email Verified: ${user.emailVerified}`;
+          
+          if (!user.emailVerified) {
+              document.getElementById('verifyButton').style.display = 'block';
+          }
+      } else {
+          window.location.href = 'login.html';
+      }
+  });
+
+  document.getElementById('verifyButton').addEventListener('click', () => {
+      const user = auth.currentUser;
+      user.sendEmailVerification()
+          .then(() => {
+              alert('Verification email sent!');
+          })
+          .catch((error) => {
+              console.error("Error sending verification email: ", error);
+          });
+  });
+}
