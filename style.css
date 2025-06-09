@@ -116,8 +116,8 @@ form.sign-in-form {
 }
 
 .social-icon {
-  height: 46px;
-  width: 46px;
+  height: 45px;
+  width: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,6 +126,7 @@ form.sign-in-form {
   border-radius: 50%;
   border: 1px solid #333;
   text-decoration: none;
+  padding: 10px;
   font-size: 1.1rem;
   transition: 0.3s;
 }
@@ -555,3 +556,8 @@ color: #fff;
   color: #0cb0ff;
 }
 
+#userLogo {
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 10px;
+}

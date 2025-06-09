@@ -18,10 +18,10 @@ register.addEventListener("click", async (event) => {
       displayName: userName
     });
 console.log("user--->", user);
-// await  sendEmailVerification(auth.currentUser)
-// .then(() => {
-//  console.log('verification send')
-// });
+await  sendEmailVerification(auth.currentUser)
+.then(() => {
+ console.log('verification send')
+});
       
 
   } catch (error) {
